@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AZURE_SEARCH_ENDPOINT": "https://YOUR-SEARCH-SERVICE.search.windows.net",
+    "AZURE_SEARCH_INDEX": "YOUR-INDEX-NAME",
+    "AZURE_SEARCH_API_KEY": "YOUR-QUERY-KEY"
+  }
+}

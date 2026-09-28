@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  title: Azure AI Search Function
+  description: Search Azure AI Search through an Azure Function.
+  version: '1.0'
+host: YOUR-FUNCTION-APP.azurewebsites.net
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /search:
+    post:
+      operationId: SearchDocuments
+      summary: Search documents
+      parameters:
+        - name: code
+          in: query
+          required: true
+          type: string
+          x-ms-visibility: internal
+          x-ms-summary: Function key
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SearchRequest'
+      responses:
+        '200':
+          description: Search results
+          schema:
+            $ref: '#/definitions/SearchResponse'
+        '400':
+          description: Invalid request
+        '500':
+          description: Search failure
+definitions:
+  SearchRequest:
+    type: object
+    required:
+      - query
+    properties:
+      query:
+        type: string
+        description: Search text sent to Azure AI Search.
+      top:
+        type: integer
+        format: int32
+        default: 10
+      filter:
+        type: string
+        description: Optional OData filter expression.
+      select:
+        type: array
+        items:
+          type: string
+  SearchResult:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      content:
+        type: string
+      sourceUrl:
+        type: string
+      score:
+        type: number
+        format: double
+  SearchResponse:
+    type: object
+    properties:
+      query:
+        type: string
+      count:
+        type: integer
+        format: int32
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/SearchResult'
+securityDefinitions: {}
